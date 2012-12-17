@@ -11,6 +11,8 @@
 // Debug output configuration options
 // ======
 
+#define DEBUG_FORM_DATA_REQUEST 1
+
 // When set to 1 ASIHTTPRequests will print information about what a request is doing
 #ifndef DEBUG_REQUEST_STATUS
 	#define DEBUG_REQUEST_STATUS 0

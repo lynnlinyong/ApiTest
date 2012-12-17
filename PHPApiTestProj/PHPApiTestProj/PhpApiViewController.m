@@ -35,9 +35,10 @@
 //    [self PaiJuRegist];
 //    [self PaijuLogin];
 //    [self PaijuForgetPwd];
-//    [self PaijuEdit];
+    [self PaijuEdit];
 //    [self PaijuGetinfo];
 //    [self PaijuIsExsit];
+//    [self PaijuGetList];
 //    [self PaijuGetContactData];
 //    [self PaijuRecharge];
 //    [self PaijuSearchOrder];
@@ -58,7 +59,6 @@
     //    [self cmsEditInfo];
     //    [self cmsGetDetail];
     //    [self cmsIsExists];
-    
     
     /**
      *乘客
@@ -2266,9 +2266,9 @@
                                                         @"PhoneNumber",@"MobileNumber",@"City",
                                                         @"PostCode",@"OldPassword",@"Password", nil];
     //post值
-    NSString *oldPwd = [@"123456" md5HexDigest];
-    NSString *newPwd = [@"654321" md5HexDigest];
-    NSArray  *infoValuesArr  = [NSArray arrayWithObjects:@"654321", @"1999/9/9",[NSNumber numberWithInt:1],
+    NSString *oldPwd = [@"654321" md5HexDigest];
+    NSString *newPwd = [@"123456" md5HexDigest];
+    NSArray  *infoValuesArr  = [NSArray arrayWithObjects:@"lynn.linyong11@gmail.com", @"1999/9/9",[NSNumber numberWithInt:1],
                                 @"shanghai", @"YONG", @"Lin",
                                 @"123456789",@"123456789", @"shanghai",@"200009",oldPwd,
                                 newPwd, nil];
@@ -2561,10 +2561,28 @@
 
 - (void) PaijuGetList
 {
+    //post字段
+//    NSArray *infoKeysArr = [NSArray arrayWithObjects:@"NickName",@"Birthday",@"Gender",
+//                            @"Skin",@"Password",
+//                            @"OldPassword", nil];
+//    //post值
+//    NSString *oldPwd     = [@"123456" md5HexDigest];
+//    NSString *newPwd     = [@"654321" md5HexDigest];
+//    NSArray  *infoValuesArr  = [NSArray arrayWithObjects:@"lynn", @"2011-11-15",[NSNumber numberWithInt:1],
+//                                @"97", newPwd,
+//                                oldPwd, nil];
+//    
+//    //post参数(Dictionary)
+//    NSDictionary *infoDic = [NSDictionary dictionaryWithObjects:infoValuesArr
+//                                                        forKeys:infoKeysArr];
+//    //post参数(json NSString)
+//    NSString *infosJson   = [infoDic JSONFragment];
+//    NSLog(@"info json:%@", infosJson);
+    
     NSArray *paramsArr = [NSArray arrayWithObjects:@"m", @"act", @"AccountID",
-                          @"AuthKey",@"Offset",@"Rows",@"Where", nil];
+                          @"AuthKey",@"Offset",@"Rows", nil];
     NSArray *valuesArr = [NSArray arrayWithObjects:@"sale",@"GetLists",@"20",
-                          @"fca51c2b01074cd6aee12fc54a319d5c",@"2012112653069",nil];
+                          @"fca51c2b01074cd6aee12fc54a319d5c",@"0",@"10",nil];
     
     NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
                                                      forKeys:paramsArr];
@@ -2722,9 +2740,9 @@
 - (void) PaijuAddComment
 {
     NSArray *paramsArr = [NSArray arrayWithObjects:@"m", @"act", @"AccountID",
-                          @"AuthKey",@"Star",@"Content", nil];
+                          @"AuthKey",@"SID",@"Star",@"Content", nil];
     NSArray *valuesArr = [NSArray arrayWithObjects:@"sale",@"AddComment",@"20",
-                          @"fca51c2b01074cd6aee12fc54a319d5c",@"2",@"2sdfsdsdf",nil];
+                          @"fca51c2b01074cd6aee12fc54a319d5c",@"2",@"2",@"2sdfsdsdf",nil];
     
     NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
                                                      forKeys:paramsArr];
@@ -2762,7 +2780,7 @@
     NSArray *paramsArr = [NSArray arrayWithObjects:@"m", @"act", @"AccountID",
                           @"SID", nil];
     NSArray *valuesArr = [NSArray arrayWithObjects:@"sale",@"IsFollowing",@"20",
-                          @"2",nil];
+                          @"1",nil];
     
     NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
                                                      forKeys:paramsArr];

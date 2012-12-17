@@ -114,4 +114,20 @@
  **/
 #define   PAIJU_BASE_URL                @"http://www.payju.com/mobileApi/index.php"
 
+
+/**
+ *1510　API　URL
+ **/
+#define    TOKEN_KEY                    @"232455FD17438078B622C9FE1A0295C5"
+#define    CMS_BASE_URL                 @"http://210.51.48.146/API/"
+
+/***********************1510 API文档1.doc***************************/
+#define    CMS_REGIST                   @"account/register"
+#define    CMS_LOGIN                    @"account/login"
+#define    CMS_FORGRT_PASSWORD          @"account/forgetPassword"
+#define    CMS_LOGOUT                   @"account/logout"
+#define    CMS_EDIT_INFOMATION          @"account/edit"
+#define    CMS_CHANGE_AVATAR            @"account/changeAvatar"
+#define    CMS_GET_DETAIL               @"account/getDetail"
+#define    CMS_EXISTS_ACCOUNT           @"account/isExists"
 #endif
