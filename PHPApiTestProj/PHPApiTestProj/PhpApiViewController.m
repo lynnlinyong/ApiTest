@@ -46,7 +46,19 @@
 //    [self PaijuGetImageList];
 //    [self PaijuFllowProduct];
 //    [self PaijuAddComment];
-    [self PaijuGetCommentList];
+//    [self PaijuGetCommentList];
+    
+    /**
+     *1510 
+     **/
+    //    [self cmsRegist];
+    //    [self cmsLogin];
+    //    [self cmsForgetPwd];
+    //    [self cmsLogout];
+    //    [self cmsEditInfo];
+    //    [self cmsGetDetail];
+    //    [self cmsIsExists];
+    
     
     /**
      *乘客
@@ -2856,6 +2868,328 @@
     NSLog(@"***********Result****************");
 #endif
 }
+
+/***************************1510 PHP文档Part1.doc***************************/
+- (void) cmsRegist
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"NickName",@"Email",@"Password",
+                          @"Gender",@"Birthday",@"Skin",@"keycode",nil];    
+    //    95   未知
+    //    96   中性肌肤
+    //    97   干性肌肤
+    //    98   油性肌肤
+    //    99   混合性肌肤
+    //    100  敏感性肌肤
+    NSString *pwd      = [@"123456" md5HexDigest];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"lynn",@"lynn.linyong@gmail.com",
+                          pwd,@"1",@"2008-01-01",@"96",TOKEN_KEY,nil];
+    
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    
+    NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]stringByAppendingString:CMS_REGIST];
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];
+    
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSDictionary *resDic = [resStr JSONValue];
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr   = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+//AccountID=387
+//Status=1
+//Token=091dfe32-6426-4add-b0bb-63f1dfe51839
+//NickName=lynn
+
+- (void) cmsLogin
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"Email",@"Password",@"keycode",nil];
+    NSString *pwd      = [@"654321" md5HexDigest];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"lynn.linyong@gmail.com",pwd,TOKEN_KEY,nil];    
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]stringByAppendingString:CMS_LOGIN];
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+    
+#if 0    
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];    
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];    
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal 
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSDictionary *resDic = [resStr JSONValue]; 
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+//AccountID=387
+//Status=1
+//Token=091dfe32-6426-4add-b0bb-63f1dfe51839
+//NickName=lynn
+
+- (void) cmsForgetPwd
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"Email",@"keycode",nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"lynn.linyong@gmail.com",TOKEN_KEY,nil];    
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]stringByAppendingString:CMS_FORGRT_PASSWORD];
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+    
+#if 0    
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];    
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];    
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal 
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSDictionary *resDic = [resStr JSONValue]; 
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) cmsLogout
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"UID",@"Token",@"keycode",nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"387",@"091dfe32-6426-4add-b0bb-63f1dfe51839",TOKEN_KEY,nil];    
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]stringByAppendingString:CMS_LOGOUT];
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+    
+#if 0    
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];    
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];    
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal 
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSDictionary *resDic = [resStr JSONValue]; 
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) cmsEditInfo
+{
+    //post字段
+    NSArray *infoKeysArr = [NSArray arrayWithObjects:@"NickName",@"Birthday",@"Gender",
+                            @"Skin",@"Password",
+                            @"OldPassword", nil];
+    //post值
+    NSString *oldPwd     = [@"123456" md5HexDigest];
+    NSString *newPwd     = [@"654321" md5HexDigest];
+    NSArray  *infoValuesArr  = [NSArray arrayWithObjects:@"lynn", @"2011-11-15",[NSNumber numberWithInt:1],
+                                @"97", newPwd,
+                                oldPwd, nil];
+    
+    //post参数(Dictionary)
+    NSDictionary *infoDic = [NSDictionary dictionaryWithObjects:infoValuesArr
+                                                        forKeys:infoKeysArr];
+    //post参数(json NSString)
+    NSString *infosJson   = [infoDic JSONFragment];
+    NSLog(@"info json:%@", infosJson);
+    
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"UID",@"Token",@"Data",@"keycode",nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"387",@"091dfe32-6426-4add-b0bb-63f1dfe51839",infosJson,TOKEN_KEY,nil];    
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]stringByAppendingString:CMS_EDIT_INFOMATION];
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+    
+#if 0    
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];    
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];    
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal 
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSDictionary *resDic = [resStr JSONValue]; 
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) cmsChangeAvatar
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"UID",@"Token",@"keycode",nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"387",@"091dfe32-6426-4add-b0bb-63f1dfe51839",TOKEN_KEY,nil];    
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]stringByAppendingString:CMS_LOGOUT];
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+    
+#if 0    
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];    
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];    
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal 
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSDictionary *resDic = [resStr JSONValue]; 
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) cmsGetDetail
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"UID",@"Token",
+                          @"keycode",nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"387",@"091dfe32-6426-4add-b0bb-63f1dfe51839",
+                          TOKEN_KEY,nil];    
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]stringByAppendingString:CMS_GET_DETAIL];
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+    
+#if 0    
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];    
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];    
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal 
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSDictionary *resDic = [resStr JSONValue]; 
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) cmsIsExists
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"Email",@"keycode",nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"lynn.linyong@gmail.com",TOKEN_KEY,nil];    
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]stringByAppendingString:CMS_EXISTS_ACCOUNT];
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+    
+#if 0    
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];    
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];    
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal 
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSDictionary *resDic = [resStr JSONValue]; 
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
 #pragma mark -
 #pragma mark ServerRequest Delegate
 - (void) requestAsyncFailed:(ASIHTTPRequest *)request
