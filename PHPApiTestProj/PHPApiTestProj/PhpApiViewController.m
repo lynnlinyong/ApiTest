@@ -35,7 +35,7 @@
 //    [self PaiJuRegist];
 //    [self PaijuLogin];
 //    [self PaijuForgetPwd];
-    [self PaijuEdit];
+//    [self PaijuEdit];
 //    [self PaijuGetinfo];
 //    [self PaijuIsExsit];
 //    [self PaijuGetList];
@@ -48,6 +48,23 @@
 //    [self PaijuFllowProduct];
 //    [self PaijuAddComment];
 //    [self PaijuGetCommentList];
+    
+    /**
+     *拍居竞价
+     **/
+//    [self PaijuPayTradeForBuy];
+    
+    /**
+     *拍居商品Api
+     **/
+//    [self PaijuElites];
+//    [self PaijuGetClass];
+//    [self PaijuGetClassList];
+//    [self PaijuSearch];
+//    [self PaijuPudDetail];
+//    [self PaijuMakeOrder];
+//    [self PaijuGetOrderList];
+    self 
     
     /**
      *1510 
@@ -2675,6 +2692,319 @@
     NSString *resStr = [[[NSString alloc]initWithData:resVal 
                                              encoding:NSUTF8StringEncoding]autorelease];
     NSLog(@"resStr:%@", resStr);
+    NSDictionary *resDic = [resStr JSONValue]; 
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) PaijuGetOrderList
+{
+    //post字段
+    NSArray *infoKeysArr = [NSArray arrayWithObjects:@"AccountID",@"Status",nil];
+    
+    //post值
+    NSArray  *infoValuesArr  = [NSArray arrayWithObjects:@"20", @"4", nil];
+    
+    //post参数(Dictionary)
+    NSDictionary *infoDic = [NSDictionary dictionaryWithObjects:infoValuesArr
+                                                        forKeys:infoKeysArr];
+    //post参数(json NSString)
+    NSString *infosJson   = [infoDic JSONFragment];
+    NSLog(@"info json:%@", infosJson);
+    
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"m", @"act", @"AuthKey", @"Offset",@"Rows",@"Where", nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"commodity",@"GetOrderFormLists",@"fca51c2b01074cd6aee12fc54a319d5c",@"0",
+                          @"10",infosJson,nil];
+    
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    
+    NSString *regStr   = PAIJU_BASE_URL;
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];    
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal 
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSDictionary *resDic = [resStr JSONValue]; 
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) PaijuPayOrder
+{
+    
+}
+
+- (void) PaijuMakeOrder
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"m", @"act", @"AccountID",
+                          @"AuthKey", @"ID",@"PayID", nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"Commodity",@"MakeOrderForm",@"20",
+                          @"fca51c2b01074cd6aee12fc54a319d5c",@"1",@"3",nil];
+    
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    
+    NSString *regStr   = PAIJU_BASE_URL;
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];    
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal 
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSDictionary *resDic = [resStr JSONValue]; 
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) PaijuPudDetail
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"m", @"act", @"AccountID",
+                          @"AuthKey", @"ID", nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"Commodity",@"getDetail",@"20",
+                          @"fca51c2b01074cd6aee12fc54a319d5c",@"4",nil];
+    
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    
+    NSString *regStr   = PAIJU_BASE_URL;
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];    
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal 
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSDictionary *resDic = [resStr JSONValue]; 
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) PaijuSearch
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"m", @"act", @"AccountID",
+                          @"AuthKey", @"Keyword", nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"Commodity",@"GetCList",@"20",
+                          @"fca51c2b01074cd6aee12fc54a319d5c",@"佘山",nil];
+    
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    
+    NSString *regStr   = PAIJU_BASE_URL;
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];    
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal 
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSDictionary *resDic = [resStr JSONValue]; 
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) PaijuGetClassList
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"m", @"act", @"AccountID",
+                                                   @"AuthKey", @"ClassID", nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"Commodity",@"GetCList",@"20",
+                          @"fca51c2b01074cd6aee12fc54a319d5c",[NSNumber numberWithInt:3],nil];
+    
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    
+    NSString *regStr   = PAIJU_BASE_URL;
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];    
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal 
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSDictionary *resDic = [resStr JSONValue]; 
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) PaijuGetClass
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"m", @"act", @"AccountID",
+                                                   @"AuthKey", @"ParentID", nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"Commodity",@"getClass",@"20",
+                          @"fca51c2b01074cd6aee12fc54a319d5c",[NSNumber numberWithInt:3],nil];
+    
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    
+    NSString *regStr   = PAIJU_BASE_URL;
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];    
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal 
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSDictionary *resDic = [resStr JSONValue]; 
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) PaijuPayTradeForBuy
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"m", @"act", @"AccountID",
+                          @"AuthKey", @"SID", nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"Sale",@"PayTradeForBuy",@"20",
+                          @"fca51c2b01074cd6aee12fc54a319d5c",[NSNumber numberWithInt:3],nil];
+    
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    
+    NSString *regStr   = PAIJU_BASE_URL;
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];    
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal 
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSDictionary *resDic = [resStr JSONValue]; 
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) PaijuElites
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"m", @"act", @"AccountID",
+                          @"AuthKey", @"Type", nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"Commodity",@"getElites",@"20",
+                          @"fca51c2b01074cd6aee12fc54a319d5c",[NSNumber numberWithInt:3],nil];
+    
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    
+    NSString *regStr   = PAIJU_BASE_URL;
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];    
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal 
+                                             encoding:NSUTF8StringEncoding]autorelease];
     NSDictionary *resDic = [resStr JSONValue]; 
     NSArray *keysArr     = [resDic allKeys];
     NSArray *valsArr     = [resDic allValues];

@@ -150,10 +150,10 @@
 		58925D0A1651059700E5FE0D /* PHPApiTestProj */ = {
 			isa = PBXGroup;
 			children = (
-				5896F27D16533CF100932AB8 /* NSString+MD5 */,
 				58925D131651059700E5FE0D /* AppDelegate.h */,
 				58925D141651059700E5FE0D /* AppDelegate.m */,
 				58925D1B1651062400E5FE0D /* ASI */,
+				5896F27D16533CF100932AB8 /* NSString+MD5 */,
 				587EFC20165247BF00509635 /* PhpApiViewController.h */,
 				587EFC21165247BF00509635 /* PhpApiViewController.m */,
 				587EFC22165247BF00509635 /* PhpApiViewController.xib */,
