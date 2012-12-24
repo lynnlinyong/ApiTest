@@ -130,4 +130,17 @@
 #define    CMS_CHANGE_AVATAR            @"account/changeAvatar"
 #define    CMS_GET_DETAIL               @"account/getDetail"
 #define    CMS_EXISTS_ACCOUNT           @"account/isExists"
+
+/***********************1510 API文档3.doc***************************/
+#define    CMS_GET_CLASS_ITEM           @"rank/getClassItem"
+#define    CMS_GET_LIST                 @"rank/getList"
+#define    CMS_GET_PUD_DETAIL           @"rank/getDetail"
+#define    CMS_ADD_COMMENT              @"rank/addComment"
+#define    CMS_GET_COMMENT_LIST         @"rank/getCommentList"
+#define    CMS_COUNT_BUY                @"rank/countBuy"
+
+/***********************1510 API文档5.doc***************************/
+#define    CMS_GET_TRY_LIST             @"trial/getList"
+#define    CMS_GET_TRY_DETAIL           @"trial/getDetail"
+#define    CMS_GET_TRY_APPLY            @"trial/apply"
 #endif

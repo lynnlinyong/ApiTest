@@ -64,11 +64,11 @@
 //    [self PaijuPudDetail];
 //    [self PaijuMakeOrder];
 //    [self PaijuGetOrderList];
-    self 
     
     /**
      *1510 
      **/
+/****************************1.doc****************************/
     //    [self cmsRegist];
     //    [self cmsLogin];
     //    [self cmsForgetPwd];
@@ -76,6 +76,19 @@
     //    [self cmsEditInfo];
     //    [self cmsGetDetail];
     //    [self cmsIsExists];
+
+/****************************3.doc****************************/
+//    [self cmsGetClassItem];
+//    [self cmsGetList];
+//    [self cmsGetPudDetail];
+//    [self cmsAddComment];     //评论不正确，少了长评，简评.参数中又一个平分.
+//    [self cmsGetCommentList];
+//    [self cmsCountBuy];       //错误码为0
+    
+/****************************5.doc****************************/
+//    [self cmsGetTryList];   //错误码为0
+    
+    
     
     /**
      *乘客
@@ -3527,6 +3540,261 @@
     NSString *resStr = [[[NSString alloc]initWithData:resVal 
                                              encoding:NSUTF8StringEncoding]autorelease];
     NSDictionary *resDic = [resStr JSONValue]; 
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) cmsGetClassItem
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"UID",@"Token",@"keycode",@"ParentID",nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"387",@"091dfe32-6426-4add-b0bb-63f1dfe51839",TOKEN_KEY,@"0",nil];
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]stringByAppendingString:CMS_GET_CLASS_ITEM];
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+    
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSLog(@"%@", resStr);
+    NSDictionary *resDic = [resStr JSONValue];
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSArray *array     = [resDic objectForKey:@"List"];
+    NSDictionary *dic  = [array objectAtIndex:0];
+    NSLog(@"%@", [dic objectForKey:@"ClassName"]);
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) cmsGetList
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"UID",@"Token",@"keycode",@"Type",@"ClassID",@"Offset",@"Rows",nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"387",@"091dfe32-6426-4add-b0bb-63f1dfe51839",TOKEN_KEY,@"1",@"1",@"0",@"10",nil];
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]stringByAppendingString:CMS_GET_LIST];
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+    
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSLog(@"%@", resStr);
+    NSDictionary *resDic = [resStr JSONValue];
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) cmsGetPudDetail
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"UID",@"Token",@"keycode",@"ProductID",nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"387",@"091dfe32-6426-4add-b0bb-63f1dfe51839",TOKEN_KEY,@"384",nil];
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]stringByAppendingString:CMS_GET_PUD_DETAIL];
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+    
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSLog(@"%@", resStr);
+    NSDictionary *resDic = [resStr JSONValue];
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) cmsAddComment 
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"UID",@"Token",@"keycode",@"ProductID",@"Content",nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"387",@"091dfe32-6426-4add-b0bb-63f1dfe51839",TOKEN_KEY,@"384",@"123123",nil];
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]stringByAppendingString:CMS_ADD_COMMENT];
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+    
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSLog(@"%@", resStr);
+    NSDictionary *resDic = [resStr JSONValue];
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) cmsGetCommentList
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"UID",@"Token",@"keycode",@"ProductID",@"Offset",@"Rows",nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"387",@"091dfe32-6426-4add-b0bb-63f1dfe51839",TOKEN_KEY,@"384",@"0",@"10",nil];
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]stringByAppendingString:CMS_GET_COMMENT_LIST];
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+    
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSLog(@"%@", resStr);
+    NSDictionary *resDic = [resStr JSONValue];
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) cmsCountBuy
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"UID",@"Token",@"keycode",@"ProductID",@"Type",nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"387",@"091dfe32-6426-4add-b0bb-63f1dfe51839",TOKEN_KEY,@"384",@"2",nil];
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]stringByAppendingString:CMS_COUNT_BUY];
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+    
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSLog(@"%@", resStr);
+    NSDictionary *resDic = [resStr JSONValue];
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) cmsGetTryList
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"UID",@"Token",@"keycode",@"Type",@"Offset",@"Rows",nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"387",@"091dfe32-6426-4add-b0bb-63f1dfe51839",TOKEN_KEY,@"3",@"0",@"10",nil];
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]stringByAppendingString:CMS_COUNT_BUY];
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+    
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSLog(@"%@", resStr);
+    NSDictionary *resDic = [resStr JSONValue];
     NSArray *keysArr     = [resDic allKeys];
     NSArray *valsArr     = [resDic allValues];
     NSLog(@"***********Result****************");
