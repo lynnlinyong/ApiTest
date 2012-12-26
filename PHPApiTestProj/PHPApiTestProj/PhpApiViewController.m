@@ -70,7 +70,7 @@
      **/
 /****************************1.doc****************************/
     //    [self cmsRegist];
-    //    [self cmsLogin];
+//    [self cmsLogin];
     //    [self cmsForgetPwd];
     //    [self cmsLogout];
     //    [self cmsEditInfo];
@@ -83,10 +83,16 @@
 //    [self cmsGetPudDetail];
 //    [self cmsAddComment];     //评论不正确，少了长评，简评.参数中又一个平分.
 //    [self cmsGetCommentList];
-//    [self cmsCountBuy];       //错误码为0
-    
+//    [self cmsCountBuy];       
+
+/****************************4.doc****************************/
+//    [self cmsGetMarketList];
+
 /****************************5.doc****************************/
-//    [self cmsGetTryList];   //错误码为0
+//    [self cmsGetTryList]; 
+//    [self cmsGetTryDetail];
+//    [self cmsTryApply];
+    
     
     
     
@@ -3554,7 +3560,7 @@
 - (void) cmsGetClassItem
 {
     NSArray *paramsArr = [NSArray arrayWithObjects:@"UID",@"Token",@"keycode",@"ParentID",nil];
-    NSArray *valuesArr = [NSArray arrayWithObjects:@"387",@"091dfe32-6426-4add-b0bb-63f1dfe51839",TOKEN_KEY,@"0",nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"387",@"091dfe32-6426-4add-b0bb-63f1dfe51839",TOKEN_KEY,@"2",nil];
     NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
                                                      forKeys:paramsArr];
     NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]stringByAppendingString:CMS_GET_CLASS_ITEM];
@@ -3773,10 +3779,122 @@
 - (void) cmsGetTryList
 {
     NSArray *paramsArr = [NSArray arrayWithObjects:@"UID",@"Token",@"keycode",@"Type",@"Offset",@"Rows",nil];
-    NSArray *valuesArr = [NSArray arrayWithObjects:@"387",@"091dfe32-6426-4add-b0bb-63f1dfe51839",TOKEN_KEY,@"3",@"0",@"10",nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"387",@"091dfe32-6426-4add-b0bb-63f1dfe51839",TOKEN_KEY,@"2",@"0",@"10",nil];
     NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
                                                      forKeys:paramsArr];
-    NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]stringByAppendingString:CMS_COUNT_BUY];
+    NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]stringByAppendingString:CMS_GET_TRY_LIST];
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+    
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSLog(@"%@", resStr);
+    NSDictionary *resDic = [resStr JSONValue];
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) cmsGetTryDetail
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"UID",@"Token",@"keycode", @"ProductID",nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"387",@"091dfe32-6426-4add-b0bb-63f1dfe51839",TOKEN_KEY, @"1",nil];
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]
+                             stringByAppendingString:CMS_GET_TRY_DETAIL];
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+    
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSLog(@"%@", resStr);
+    NSDictionary *resDic = [resStr JSONValue];
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) cmsTryApply
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"UID",@"Token",@"keycode", @"ProductID",nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"387",@"091dfe32-6426-4add-b0bb-63f1dfe51839",TOKEN_KEY, @"1",nil];
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]
+                          stringByAppendingString:CMS_TRY_APPLY];
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+    
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSLog(@"%@", resStr);
+    NSDictionary *resDic = [resStr JSONValue];
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) cmsGetMarketList
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"UID",@"Token",@"keycode", @"ClassID",
+                                                   @"Offset", @"Rows",nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"387",@"091dfe32-6426-4add-b0bb-63f1dfe51839",TOKEN_KEY, @"4",@"0",@"10",nil];
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    NSString *regStr   = [[NSString stringWithFormat:CMS_BASE_URL]
+                          stringByAppendingString:CMS_TRY_APPLY];
     ServerRequest *serverReq = [ServerRequest sharedServerRequest];
     serverReq.delegate = self;
     

@@ -139,8 +139,15 @@
 #define    CMS_GET_COMMENT_LIST         @"rank/getCommentList"
 #define    CMS_COUNT_BUY                @"rank/countBuy"
 
+/***********************1510 API文档4.doc***************************/
+#define    CMS_GET_MARKET_LIST          @"market/getList"
+#define    CMS_GET_MARKET_DETAIL        @"market/getDetail"
+#define    CMS_ADD_MARKET_COMMENT       @"market/addComment"
+#define    CMS_GET_MARKET_COMMENT_LIST  @"market/getCommentList"
+
 /***********************1510 API文档5.doc***************************/
 #define    CMS_GET_TRY_LIST             @"trial/getList"
 #define    CMS_GET_TRY_DETAIL           @"trial/getDetail"
-#define    CMS_GET_TRY_APPLY            @"trial/apply"
+#define    CMS_TRY_APPLY                @"trial/apply"
+
 #endif
