@@ -31,19 +31,27 @@
     
 //    [self lbRegist];
     [self lbLogin];
-    [self lbGetUserInfo];
-//    [self lbNewGroup];
+//    [self lbGetUserInfo];
+//    [self lbEditeUserInfo];
+//    [self lbGetUserInfo];
+//    [self lbUpdateLoacation];
+//    [self lbGetPwd];
 //
+    
+//    [self lbNewGroup];
 //    [self lbEditGroup];
-    
-//    [self lbGetChatList];
-    
 //    [self lbDeleteGroup];
+    
+    [self lbGetChatList];
     
 //    [self lbJoinMember];   //需要加入数据
 //    [self lbRemoveMember]; //需要加入数据
-    //2.加好友请求要按照MQTT添加,请求,需要列表出那些就接口要用MQT，
-    
+//    [self lbRGetGroupInfo];
+//    [self lbRAddGroupLight];
+//    [self lbRgetAllGroupLight];
+//    [self lbRDelGroupLight];
+//2.加好友请求要按照MQTT添加,请求,需要列表出那些就接口要用MQT，
+
     
     
     /**
@@ -322,11 +330,130 @@
 #endif
 }
 
+- (void) lbEditeUserInfo
+{
+    NSArray *paramsArr  = [NSArray arrayWithObjects:@"sign",@"userId",@"data",nil];
+    NSDictionary *userDic = [NSDictionary dictionaryWithObjectsAndKeys:@"1981-01-02",@"birth", nil];
+    NSString *userJson    = [userDic JSONFragment];
+    
+    NSData  *devToken   = [[NSUserDefaults standardUserDefaults] objectForKey:LR_DEVICE_TOKEN];
+    NSArray *valuesArr  = [NSArray arrayWithObjects:@"Ma99dK23#4mggrnm",
+                        [NSNumber numberWithInt:9],userJson, nil];
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    
+    NSString *regStr   = @"http://114.215.198.60/index.php/api/account/update";
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSDictionary *resDic = [resStr JSONValue];
+    NSLog(@"resDic:%@", resDic);
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+- (void) lbUpdateLoacation
+{
+    NSArray *paramsArr  = [NSArray arrayWithObjects:@"sign",@"userId",@"lat",@"lng",nil];
+    
+    NSData  *devToken   = [[NSUserDefaults standardUserDefaults] objectForKey:LR_DEVICE_TOKEN];
+    NSArray *valuesArr  = [NSArray arrayWithObjects:@"Ma99dK23#4mggrnm",
+                           [NSNumber numberWithInt:9],@"12.222",@"12.222", nil];
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    
+    NSString *regStr   = @"http://114.215.198.60/index.php/api/account/updateLatLng";
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSDictionary *resDic = [resStr JSONValue];
+    NSLog(@"resDic:%@", resDic);
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
+
+- (void) lbGetPwd
+{
+    NSArray *paramsArr  = [NSArray arrayWithObjects:@"sign",@"loginName",nil];
+    
+    NSData  *devToken   = [[NSUserDefaults standardUserDefaults] objectForKey:LR_DEVICE_TOKEN];
+    NSArray *valuesArr  = [NSArray arrayWithObjects:@"Ma99dK23#4mggrnm",@"zhangsan1", nil];
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    
+    NSString *regStr   = @"http://114.215.198.60/index.php/api/account/getpwd";
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSDictionary *resDic = [resStr JSONValue];
+    NSLog(@"resDic:%@", resDic);
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
 - (void) lbGetChatList
 {
     NSArray *paramsArr = [NSArray arrayWithObjects:@"sign",@"userId",@"token",nil];
     NSData *devToken   = [[NSUserDefaults standardUserDefaults] objectForKey:LR_DEVICE_TOKEN];
-    NSArray *valuesArr = [NSArray arrayWithObjects:@"Ma99dK23#4mggrnm",@"1", @"20EABAF7EBFFB8C6DC61BBEC37519FC18D1CA47C299CA5A62CC442EB9D64871E==/", nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"Ma99dK23#4mggrnm",@"9", @"20EABAF7EBFFB8C6DC61BBEC37519FC18D1CA47C299CA5A62CC442EB9D64871E==/", nil];
     
     NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
                                                      forKeys:paramsArr];
@@ -364,7 +491,7 @@
 {
     NSArray *paramsArr = [NSArray arrayWithObjects:@"sign",@"userId",@"token",@"groupName",nil];
     NSData *devToken   = [[NSUserDefaults standardUserDefaults] objectForKey:LR_DEVICE_TOKEN];
-    NSArray *valuesArr = [NSArray arrayWithObjects:@"Ma99dK23#4mggrnm",@"1", @"20EABAF7EBFFB8C6DC61BBEC37519FC18D1CA47C299CA5A62CC442EB9D64871E==/",@"zhangsan", nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"Ma99dK23#4mggrnm",@"9", @"20EABAF7EBFFB8C6DC61BBEC37519FC18D1CA47C299CA5A62CC442EB9D64871E==/",@"zhangsan", nil];
     
     NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
                                                      forKeys:paramsArr];
@@ -417,7 +544,7 @@
 - (void) lbEditGroup
 {
     NSArray *paramsArr = [NSArray arrayWithObjects:@"sign",@"userId",@"token",@"groupId",@"data",nil];
-    NSDictionary *infoDic = [NSDictionary dictionaryWithObjectsAndKeys:@"wangwu",@"groupName",@"1",@"isTop", nil];
+    NSDictionary *infoDic = [NSDictionary dictionaryWithObjectsAndKeys:@"wangwu",@"groupName",@"9",@"isTop", nil];
     NSString *infoString  = [infoDic JSONFragment];
     
     NSData *devToken   = [[NSUserDefaults standardUserDefaults] objectForKey:LR_DEVICE_TOKEN];
@@ -459,12 +586,15 @@
 {
     NSArray *paramsArr = [NSArray arrayWithObjects:@"sign",@"userId",@"token",@"groupId",@"members",nil];
     NSData *devToken   = [[NSUserDefaults standardUserDefaults] objectForKey:LR_DEVICE_TOKEN];
-    NSArray *valuesArr = [NSArray arrayWithObjects:@"Ma99dK23#4mggrnm",@"1", @"20EABAF7EBFFB8C6DC61BBEC37519FC18D1CA47C299CA5A62CC442EB9D64871E==/",@"zhangsan",@"", nil];
+    NSArray *array = [NSArray arrayWithObjects:@"1", nil];
+    NSString *jsonArray = [array JSONFragment];
+    
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"Ma99dK23#4mggrnm",@"1", @"20EABAF7EBFFB8C6DC61BBEC37519FC18D1CA47C299CA5A62CC442EB9D64871E==/",@"539a7416a6d4b26f058b4568",jsonArray, nil];
     
     NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
                                                      forKeys:paramsArr];
     
-    NSString *regStr   = @"http://114.215.198.60/index.php/api/talk/delGroup";
+    NSString *regStr   = @"http://114.215.198.60/index.php/api/talk/joinMember";
     ServerRequest *serverReq = [ServerRequest sharedServerRequest];
     serverReq.delegate = self;
 #if 0
@@ -497,7 +627,7 @@
 {
     NSArray *paramsArr = [NSArray arrayWithObjects:@"sign",@"userId",@"token",@"groupId",nil];
     NSData *devToken   = [[NSUserDefaults standardUserDefaults] objectForKey:LR_DEVICE_TOKEN];
-    NSArray *valuesArr = [NSArray arrayWithObjects:@"Ma99dK23#4mggrnm",@"1", @"20EABAF7EBFFB8C6DC61BBEC37519FC18D1CA47C299CA5A62CC442EB9D64871E==/",@"5396f8a6a6d4b27e058b4567", nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"Ma99dK23#4mggrnm",@"1", @"20EABAF7EBFFB8C6DC61BBEC37519FC18D1CA47C299CA5A62CC442EB9D64871E==/",@"53991fdca6d4b26f058b4567", nil];
     
     NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
                                                      forKeys:paramsArr];
@@ -535,12 +665,15 @@
 {
     NSArray *paramsArr = [NSArray arrayWithObjects:@"sign",@"userId",@"token",@"groupId",@"members",nil];
     NSData *devToken   = [[NSUserDefaults standardUserDefaults] objectForKey:LR_DEVICE_TOKEN];
-    NSArray *valuesArr = [NSArray arrayWithObjects:@"Ma99dK23#4mggrnm",@"1", @"20EABAF7EBFFB8C6DC61BBEC37519FC18D1CA47C299CA5A62CC442EB9D64871E==/",@"zhangsan", nil];
+    NSArray *members = [NSArray arrayWithObjects:@"1", nil];
+    NSString *jsonStr = [members JSONFragment];
+    
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"Ma99dK23#4mggrnm",@"9", @"20EABAF7EBFFB8C6DC61BBEC37519FC18D1CA47C299CA5A62CC442EB9D64871E==/",@"539a7416a6d4b26f058b4568",jsonStr, nil];
     
     NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
                                                      forKeys:paramsArr];
     
-    NSString *regStr   = @"http://114.215.198.60/index.php/api/talk/delGroup";
+    NSString *regStr   = @"http://114.215.198.60/index.php/api/talk/removeMember";
     ServerRequest *serverReq = [ServerRequest sharedServerRequest];
     serverReq.delegate = self;
 #if 0
@@ -647,11 +780,12 @@
 
 - (void) lbRAddGroupLight
 {
-    NSArray *paramsArr = [NSArray arrayWithObjects:@"sign",@"userId",@"token",@"groupId",@"data",nil];
-    NSDictionary *jsonDic = [NSDictionary dictionaryWithObjectsAndKeys:@"",@"",nil];
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"sign",@"userId",@"token",@"groupId",@"type",@"data",nil];
+    NSDictionary *jsonDic = [NSDictionary dictionaryWithObjectsAndKeys:@"11",@"name",@"{sdfsdf:sdfsd}",@"settings",@"1",@"isDefault",nil];
+    NSString *jsonString  = [jsonDic JSONFragment];
     
     NSData *devToken   = [[NSUserDefaults standardUserDefaults] objectForKey:LR_DEVICE_TOKEN];
-    NSArray *valuesArr = [NSArray arrayWithObjects:@"Ma99dK23#4mggrnm",@"1", @"20EABAF7EBFFB8C6DC61BBEC37519FC18D1CA47C299CA5A62CC442EB9D64871E==/",@"zhangsan", nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"Ma99dK23#4mggrnm",@"9", @"20EABAF7EBFFB8C6DC61BBEC37519FC18D1CA47C299CA5A62CC442EB9D64871E==/",@"539a7416a6d4b26f058b4568",@"1",jsonString,nil];
     
     NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
                                                      forKeys:paramsArr];
@@ -685,11 +819,51 @@
 #endif
 }
 
+
+
+- (void) lbRgetAllGroupLight
+{
+    NSArray *paramsArr = [NSArray arrayWithObjects:@"sign",@"userId",@"token",@"groupId",@"type",nil];
+    NSData *devToken   = [[NSUserDefaults standardUserDefaults] objectForKey:LR_DEVICE_TOKEN];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"Ma99dK23#4mggrnm",@"9", @"20EABAF7EBFFB8C6DC61BBEC37519FC18D1CA47C299CA5A62CC442EB9D64871E==/",@"539a7416a6d4b26f058b4568",@"1", nil];
+    
+    NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
+                                                     forKeys:paramsArr];
+    
+    NSString *regStr   = @"http://114.215.198.60/index.php/api/talk/getGroupLight";
+    ServerRequest *serverReq = [ServerRequest sharedServerRequest];
+    serverReq.delegate = self;
+#if 0
+    [serverReq requestASyncWith:kServerPostRequest
+                       paramDic:pDic
+                         urlStr:regStr];
+#endif
+    
+#if 1
+    NSData *resVal = [serverReq requestSyncWith:kServerPostRequest
+                                       paramDic:pDic
+                                         urlStr:regStr];
+    
+    NSString *resStr = [[[NSString alloc]initWithData:resVal
+                                             encoding:NSUTF8StringEncoding]autorelease];
+    NSDictionary *resDic = [resStr JSONValue];
+    NSLog(@"resDic:%@", resDic);
+    NSArray *keysArr     = [resDic allKeys];
+    NSArray *valsArr     = [resDic allValues];
+    NSLog(@"***********Result****************");
+    for (int i=0; i<keysArr.count; i++)
+    {
+        NSLog(@"%@=%@", [keysArr objectAtIndex:i], [valsArr objectAtIndex:i]);
+    }
+    NSLog(@"***********Result****************");
+#endif
+}
+
 - (void) lbRDelGroupLight
 {
     NSArray *paramsArr = [NSArray arrayWithObjects:@"sign",@"userId",@"token",@"groupId",@"lgtId",nil];
     NSData *devToken   = [[NSUserDefaults standardUserDefaults] objectForKey:LR_DEVICE_TOKEN];
-    NSArray *valuesArr = [NSArray arrayWithObjects:@"Ma99dK23#4mggrnm",@"1", @"20EABAF7EBFFB8C6DC61BBEC37519FC18D1CA47C299CA5A62CC442EB9D64871E==/",@"zhangsan", nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"Ma99dK23#4mggrnm",@"9", @"20EABAF7EBFFB8C6DC61BBEC37519FC18D1CA47C299CA5A62CC442EB9D64871E==/",@"539a7416a6d4b26f058b4568",[NSNumber numberWithInt:5], nil];
     
     NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
                                                      forKeys:paramsArr];
@@ -727,7 +901,7 @@
 {
     NSArray *paramsArr = [NSArray arrayWithObjects:@"sign",@"userId",@"token",@"groupId",nil];
     NSData *devToken   = [[NSUserDefaults standardUserDefaults] objectForKey:LR_DEVICE_TOKEN];
-    NSArray *valuesArr = [NSArray arrayWithObjects:@"Ma99dK23#4mggrnm",@"1", @"20EABAF7EBFFB8C6DC61BBEC37519FC18D1CA47C299CA5A62CC442EB9D64871E==/",@"zhangsan", nil];
+    NSArray *valuesArr = [NSArray arrayWithObjects:@"Ma99dK23#4mggrnm",@"9", @"20EABAF7EBFFB8C6DC61BBEC37519FC18D1CA47C299CA5A62CC442EB9D64871E==/",@"539a7416a6d4b26f058b4568", nil];
     
     NSDictionary *pDic = [NSDictionary dictionaryWithObjects:valuesArr
                                                      forKeys:paramsArr];
